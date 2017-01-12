@@ -70,9 +70,9 @@ func (z *ZKC) calculateStatus() string {
 			STATUSRESET
 	}
 
-	return fmt.Sprintf(STATUSCYAN+" ["+STATUSRESET+"%v"+STATUSCYAN+"] ["+
-		STATUSRESET+"%v"+STATUSCYAN+"] ["+STATUSRESET+"%v:%v"+
-		STATUSCYAN+"] ["+STATUSRESET+"%v"+STATUSCYAN+"]%v",
+	return fmt.Sprintf(z.settings.StatusColor+" ["+STATUSRESET+"%v"+z.settings.StatusColor+"] ["+
+		STATUSRESET+"%v"+z.settings.StatusColor+"] ["+STATUSRESET+"%v:%v"+
+		z.settings.StatusColor+"] ["+STATUSRESET+"%v"+z.settings.StatusColor+"]%v",
 		time.Now().Format("15:04"),
 		z.id.Public.Nick,
 		z.active,

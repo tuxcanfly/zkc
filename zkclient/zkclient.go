@@ -52,27 +52,29 @@ func (z *ZKC) calculateStatus() string {
 				active += ","
 				comma = false
 			}
-			color := STATUSWHITEBOLD
+			// TODO: restore bold on this
+			color := z.settings.StatusResetColor
 			if v.mentioned {
 				color = STATUSMAGENTABOLD
 			}
 			active += color +
 				strconv.FormatInt(int64(k), 10) +
-				STATUSRESET
+				z.settings.StatusResetColor
 			comma = true
 		}
 	}
 
 	var paging string
 	if z.conversation[z.active].console.IsPaging() {
-		paging = STATUSWHITEBOLD +
+		// TODO: restore bold on this
+		paging = z.settings.StatusResetColor +
 			" -- More --" +
-			STATUSRESET
+			z.settings.StatusResetColor
 	}
 
-	return fmt.Sprintf(z.settings.StatusColor+" ["+STATUSRESET+"%v"+z.settings.StatusColor+"] ["+
-		STATUSRESET+"%v"+z.settings.StatusColor+"] ["+STATUSRESET+"%v:%v"+
-		z.settings.StatusColor+"] ["+STATUSRESET+"%v"+z.settings.StatusColor+"]%v",
+	return fmt.Sprintf(z.settings.StatusColor+" ["+z.settings.StatusResetColor+"%v"+z.settings.StatusColor+"] ["+
+		z.settings.StatusResetColor+"%v"+z.settings.StatusColor+"] ["+z.settings.StatusResetColor+"%v:%v"+
+		z.settings.StatusColor+"] ["+z.settings.StatusResetColor+"%v"+z.settings.StatusColor+"]%v",
 		time.Now().Format("15:04"),
 		z.id.Public.Nick,
 		z.active,

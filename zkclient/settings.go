@@ -38,10 +38,11 @@ type Settings struct {
 	Profiler       string // go profiler link
 
 	// ui section
-	NickColor   string
-	GcColor     string
-	PmColor     string
-	StatusColor string
+	NickColor        string
+	GcColor          string
+	PmColor          string
+	StatusColor      string
+	StatusResetColor string
 }
 
 func textToColor(in string) (int, error) {
@@ -126,10 +127,11 @@ func ObtainSettings() (*Settings, error) {
 		Debug:          false,
 		Profiler:       "localhost:6061",
 
-		NickColor:   WHITEBOLD,
-		GcColor:     GREENBOLD,
-		PmColor:     CYANBOLD,
-		StatusColor: STATUSCYAN,
+		NickColor:        WHITEBOLD,
+		GcColor:          GREENBOLD,
+		PmColor:          CYANBOLD,
+		StatusColor:      STATUSCYAN,
+		StatusResetColor: STATUSRESET,
 	}
 
 	// config file
@@ -244,6 +246,15 @@ func ObtainSettings() (*Settings, error) {
 			return nil, fmt.Errorf("statuscolor: %v", err)
 		}
 		s.StatusColor = color
+	}
+
+	statusResetColor, ok := cfg.Get("ui", "statusothercolor")
+	if ok {
+		color, err := colorToAnsi(statusResetColor)
+		if err != nil {
+			return nil, fmt.Errorf("resetcolor: %v", err)
+		}
+		s.StatusResetColor = color
 	}
 
 	return &s, nil

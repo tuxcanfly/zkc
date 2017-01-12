@@ -30,8 +30,8 @@ var (
 	RESET, REDBOLD, CYANBOLD, GREENBOLD, WHITEBOLD string // colors
 	MAGENTABOLD, YELLOWBOLD                        string
 
-	STATUSWHITEBOLD, STATUSCYAN, STATUSRESET string // status colors
-	STATUSMAGENTABOLD                        string
+	STATUSCYAN, STATUSRESET string // status colors
+	STATUSMAGENTABOLD       string
 )
 
 func init() {
@@ -43,7 +43,6 @@ func init() {
 	MAGENTABOLD, _ = ttk.Color(ttk.AttrBold, ttk.ColorMagenta, ttk.AttrNA)
 	YELLOWBOLD, _ = ttk.Color(ttk.AttrBold, ttk.ColorYellow, ttk.AttrNA)
 
-	STATUSWHITEBOLD, _ = ttk.Color(ttk.AttrBold, ttk.ColorWhite, statusBG)
 	STATUSCYAN, _ = ttk.Color(ttk.AttrNA, ttk.ColorCyan, statusBG)
 	STATUSMAGENTABOLD, _ = ttk.Color(ttk.AttrBold, ttk.ColorMagenta, statusBG)
 	STATUSRESET, _ = ttk.Color(ttk.AttrNA, statusFG, statusBG)
@@ -107,7 +106,7 @@ func (mw *mainWindow) doHelp(args []string) error {
 func (mw *mainWindow) Init(w *ttk.Window) {
 	mw.w = w
 
-	statusReset, _, _ := ttk.DecodeColor(STATUSRESET)
+	statusReset, _, _ := ttk.DecodeColor(mw.zkc.settings.StatusResetColor)
 	// top line
 	mw.w = w
 	mw.title = w.AddStatus(0, ttk.JustifyLeft, consoleText)
